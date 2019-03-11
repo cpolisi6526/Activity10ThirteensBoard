@@ -47,9 +47,10 @@ public class ElevensBoard extends Board {
      * In Elevens, the legal groups are (1) a pair of non-face cards
      * whose values add to 11, and (2) a group of three cards consisting of
      * a jack, a queen, and a king in some order.
+     *
      * @param selectedCards the list of the indices of the selected cards.
      * @return true if the selected cards form a valid group for removal;
-     *         false otherwise.
+     * false otherwise.
      */
     @Override
     public boolean isLegal(List<Integer> selectedCards) {
@@ -67,8 +68,9 @@ public class ElevensBoard extends Board {
      * In Elevens, there is a legal play if the board contains
      * (1) a pair of non-face cards whose values add to 11, or (2) a group
      * of three cards consisting of a jack, a queen, and a king in some order.
+     *
      * @return true if there is a legal play left on the board;
-     *         false otherwise.
+     * false otherwise.
      */
     @Override
     public boolean anotherPlayIsPossible() {
@@ -78,11 +80,12 @@ public class ElevensBoard extends Board {
 
     /**
      * Check for an 11-pair in the selected cards.
+     *
      * @param selectedCards selects a subset of this board.  It is list
      *                      of indexes into this board that are searched
      *                      to find an 11-pair.
      * @return true if the board entries in selectedCards
-     *              contain an 11-pair; false otherwise.
+     * contain an 11-pair; false otherwise.
      */
     private boolean containsPairSum13(List<Integer> selectedCards) {
         for (int sk1 = 0; sk1 < selectedCards.size(); sk1++) {
@@ -99,20 +102,22 @@ public class ElevensBoard extends Board {
 
     /**
      * Check for a JQK in the selected cards.
+     *
      * @param selectedCards selects a subset of this board.  It is list
      *                      of indexes into this board that are searched
      *                      to find a JQK group.
      * @return true if the board entries in selectedCards
-     *              include a jack, a queen, and a king; false otherwise.
+     * include a jack, a queen, and a king; false otherwise.
      */
     private boolean containsK(List<Integer> selectedCards) {
-
-        boolean foundKing = false;
-        if(selectedCards.size()==1){
-            if (cardAt(0).rank().equals("king")) {
-                foundKing = true;
+        for (int sk1 = 0; sk1 < selectedCards.size(); sk1++) {
+            int k1 = selectedCards.get(sk1).intValue();
+            if (selectedCards.size() == 1) {
+                if (cardAt(k1).pointValue() == 13) {
+                    return true;
+                }
             }
         }
-        return foundKing;
+        return false;
     }
 }
